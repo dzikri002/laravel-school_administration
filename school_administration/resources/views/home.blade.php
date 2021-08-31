@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <br>Welcome, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!<b>
                 </div>
             </div>
         </div>
