@@ -45,4 +45,16 @@ class ProfileController extends Controller
             return redirect('settings')->with('status', 'Authentication error.');
         }
     }
+
+    public function updateEmail(Request $request) {
+        $user = Auth::User();
+        $validated = $request->validate([
+            'mail_old' => ['required', 'string', 'email', 'max:255', 'unique:users,mail'],
+            'mail_new' => ['required', 'string', 'email', 'max:255', 'unique:users,mail', 'same:mail_new_confirm'],
+            'mail_new_confirm' => ['required', 'string', 'email', 'max:255', 'unique:users,mail'],
+        ]);
+        $user->mail = $validated['mail_new'];
+        $user->save();
+        return redirect('settings')->with('status', 'E-mail updated successfully.');
+    }
 }
