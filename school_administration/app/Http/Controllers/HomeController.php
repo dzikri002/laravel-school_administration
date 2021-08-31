@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::User();
+
+        $articles = DB::Table('website_news')->get();
+        $latest_article = DB::Table('website_news')->orderBy('id', 'desc')->first();
+
+        return view('home', [
+            'user' => $user,
+            'articles' => $articles,
+            'latest_article' => $latest_article,
+        ]);
     }
 }
